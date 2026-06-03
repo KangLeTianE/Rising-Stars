@@ -94,52 +94,36 @@
 
     .brand {
       display: flex;
-      align-items: center;
-      gap: 22px;
-    }
-
-    .logo-mark {
-      width: 260px;
-      height: 92px;
-      flex: 0 0 auto;
-      border-radius: 0;
-      overflow: hidden;
-      box-shadow: none;
-    }
-    
-    .logo-mark img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
-    }
-
-    .brand-text {
-      display: flex;
       flex-direction: column;
-      gap: 6px;
+      align-items: flex-start;
+      gap: 16px;
     }
 
-    .title {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 0.95;
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      color: var(--text);
+    .logo-card {
+      width: min(100%, 560px);
+      padding: 18px 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(17, 24, 39, 0.08);
+      box-shadow:
+        0 20px 44px rgba(17, 24, 39, 0.10),
+        0 10px 24px rgba(79, 124, 255, 0.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
-    .title .accent {
-      background: linear-gradient(90deg, var(--blue-1), var(--blue-2), var(--gold-2), var(--gold-3));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .main-logo {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .subtitle {
-      font-size: 0.98rem;
+      font-size: 1.08rem;
       color: var(--muted);
       letter-spacing: 0.02em;
-      font-weight: 500;
+      font-weight: 600;
+      padding-left: 4px;
     }
 
     .about-section {
@@ -244,26 +228,20 @@
       }
 
       .brand {
-        flex-direction: column;
+        align-items: center;
         text-align: center;
-        gap: 18px;
+        gap: 14px;
       }
 
-      .logo-mark {
-        width: 84px;
-        height: 84px;
-        border-radius: 24px;
-      }
-
-      .logo-mark img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: contain;
+      .logo-card {
+        width: min(100%, 360px);
+        padding: 14px 16px;
+        border-radius: 20px;
       }
 
       .subtitle {
-        font-size: 0.92rem;
+        font-size: 0.95rem;
+        padding-left: 0;
       }
 
       .about-section {
@@ -305,14 +283,11 @@
 
   <main class="home">
     <section class="brand" aria-label="Rising Star logo">
-      <div class="logo-mark">
-        <img src="rising-star-logo.jpg" alt="Rising Star logo">
+      <div class="logo-card">
+        <img class="main-logo" src="rising-star-logo.jpg" alt="Rising Star logo">
       </div>
 
-      <div class="brand-text">
-        <h1 class="title">Rising <span class="accent">Star</span></h1>
-        <p class="subtitle">Speak with confidence.</p>
-      </div>
+      <p class="subtitle">Speak with confidence.</p>
     </section>
 
     <section class="about-section" aria-label="Who we are">
