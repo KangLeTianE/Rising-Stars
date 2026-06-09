@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rising Star | Home</title>
+
   <style>
     :root {
       --text: #111827;
@@ -21,14 +22,29 @@
       padding: 0;
     }
 
+    html {
+      background: #f4f7fb;
+    }
+
     body {
       min-height: 100vh;
+      position: relative;
+      isolation: isolate;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: transparent;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
       background:
         radial-gradient(circle at top left, rgba(122, 92, 255, 0.10), transparent 30%),
         radial-gradient(circle at bottom right, rgba(255, 184, 0, 0.14), transparent 30%),
         linear-gradient(180deg, #fcfcfe 0%, #f4f7fb 100%);
-      color: var(--text);
     }
 
     .navbar {
@@ -311,6 +327,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="nav-links">
@@ -332,7 +349,7 @@
       <h2 class="about-title">Who We Are</h2>
       <h3>A place for young voices to grow.</h3>
       <p>
-        Rising Star is a kid’s club in which club members take turns hosting online dicussion meetings.
+        Rising Star is a kid’s club in which club members take turns hosting online discussion meetings.
         In our meetings:
       </p>
       <ul class="about-list">
@@ -394,7 +411,7 @@
         </div>
         <h2>Host Meetings</h2>
         <p>
-          Learn how to host meetings, prepare meetings (including finding good questions to ask), and encourage everyone to speak.
+          Learn how to host meetings, prepare meetings, including finding good questions to ask, and encourage everyone to speak.
         </p>
       </article>
     </section>
