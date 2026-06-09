@@ -173,6 +173,19 @@
       max-width: 760px;
     }
 
+    .about-list {
+      margin-top: 10px;
+      padding-left: 24px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 760px;
+    }
+
+    .about-list li {
+      margin-bottom: 4px;
+    }
+
     .feature-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -281,6 +294,12 @@
         font-size: 0.98rem;
       }
 
+      .about-list {
+        padding-left: 0;
+        list-style-position: inside;
+        font-size: 0.98rem;
+      }
+
       .feature-grid {
         grid-template-columns: 1fr;
         margin-top: 28px;
@@ -313,63 +332,69 @@
       <h2 class="about-title">Who We Are</h2>
       <h3>A place for young voices to grow.</h3>
       <p>
-        Rising Star is a kid-led online discussion club where members practice speaking,
-        listening, and leading conversations. In our meetings, kids share ideas, ask thoughtful
-        questions, and build the confidence to communicate clearly with others.
+        Rising Star is a kid’s club in which club members take turns hosting meetings.
+        In our meetings:
       </p>
+      <ul class="about-list">
+        <li>Kids propose solutions to problems and receive feedback from each other.</li>
+        <li>Kids practice expressing their opinions with clarity, style, and confidence.</li>
+        <li>Kids learn how to host meetings.</li>
+      </ul>
     </section>
 
     <section class="mission-section" aria-label="Our mission">
       <h2 class="mission-title">Our Mission</h2>
-      <h3>Helping kids speak, listen, and lead.</h3>
-      <p>
-        Our mission is to help kids become confident speakers, thoughtful listeners,
-        and kind leaders. Rising Star gives members a safe and supportive place to
-        practice sharing ideas, leading discussions, and learning from each other.
-      </p>
+      <h3>
+        Helping kids speak, listen, lead<br>
+        and know the world better!
+      </h3>
     </section>
 
     <section class="feature-grid" aria-label="Rising Star features">
       <article class="feature-card">
         <div class="feature-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 5.5C4 4.7 4.7 4 5.5 4h13c.8 0 1.5.7 1.5 1.5v8c0 .8-.7 1.5-1.5 1.5H9l-5 4v-13.5Z" />
-            <path d="M8 8h8" />
-            <path d="M8 11h5" />
+            <path d="M9 18h6" />
+            <path d="M10 22h4" />
+            <path d="M12 2a6 6 0 0 0-3.7 10.7c.7.6 1.2 1.5 1.2 2.4V16h5v-.9c0-.9.5-1.8 1.2-2.4A6 6 0 0 0 12 2Z" />
+            <path d="M17.5 17.5 21 21" />
+            <path d="M20 16.5c.7.7.7 1.8 0 2.5s-1.8.7-2.5 0" />
           </svg>
         </div>
-        <h2>Practice Speaking</h2>
+        <h2>Solve Problems</h2>
         <p>
-          Share your ideas in a friendly online space where every kid gets a chance to speak.
+          Propose solutions to problems and receive friendly feedback from other meeting participants.
         </p>
       </article>
 
       <article class="feature-card">
         <div class="feature-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3l2.2 5.2L20 10.4l-5.2 2.2L12 21l-2.8-8.4L4 10.4l5.8-2.2L12 3Z" />
-            <path d="M18 3v4" />
-            <path d="M20 5h-4" />
+            <path d="M4 10v4" />
+            <path d="M7 9v6" />
+            <path d="M7 12h3l7-5v10l-7-5H7Z" />
+            <path d="M20 9.5c.8 1.4.8 3.6 0 5" />
+            <path d="M12 17.5c.7 1.8 1.7 2.8 3 3" />
           </svg>
         </div>
-        <h2>Build Confidence</h2>
+        <h2>Sharing Ideas and Opinions</h2>
         <p>
-          Get more comfortable talking, listening, and expressing yourself clearly.
+          Practice expressing opinions with clarity, style, and confidence, and pitching ideas persuasively.
         </p>
       </article>
 
       <article class="feature-card">
         <div class="feature-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-            <path d="M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-            <path d="M3.5 20c.7-3.2 2.4-5 4.5-5s3.8 1.8 4.5 5" />
-            <path d="M11.5 20c.7-3.2 2.4-5 4.5-5s3.8 1.8 4.5 5" />
+            <path d="M12 3l2.2 4.5L19 9l-3.5 3.4.8 4.8L12 15l-4.3 2.2.8-4.8L5 9l4.8-1.5L12 3Z" />
+            <path d="M4 21c.7-2.6 2.1-4 4-4" />
+            <path d="M20 21c-.7-2.6-2.1-4-4-4" />
+            <path d="M8 21h8" />
           </svg>
         </div>
-        <h2>Lead Discussions</h2>
+        <h2>Host Meetings</h2>
         <p>
-          Club members can host meetings, ask thoughtful questions, and guide conversations.
+          Learn how to host meetings, prepare meetings (including finding good questions to ask), and encourage everyone to speak.
         </p>
       </article>
     </section>
