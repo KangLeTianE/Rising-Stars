@@ -125,16 +125,25 @@
       color: transparent;
     }
 
-    .about-section {
+    .about-section,
+    .mission-section {
       width: min(100%, 860px);
-      margin-top: 58px;
       padding: 0;
       background: transparent;
       border: none;
       box-shadow: none;
     }
 
-    .about-title {
+    .about-section {
+      margin-top: 58px;
+    }
+
+    .mission-section {
+      margin-top: 46px;
+    }
+
+    .about-title,
+    .mission-title {
       font-size: clamp(2.2rem, 3.2vw, 3rem);
       line-height: 1;
       font-weight: 850;
@@ -146,7 +155,8 @@
       color: transparent;
     }
 
-    .about-section h3 {
+    .about-section h3,
+    .mission-section h3 {
       font-size: clamp(1.85rem, 2.8vw, 2.6rem);
       line-height: 1.08;
       font-weight: 800;
@@ -155,7 +165,8 @@
       margin-bottom: 18px;
     }
 
-    .about-section p {
+    .about-section p,
+    .mission-section p {
       color: var(--muted);
       font-size: 1.05rem;
       line-height: 1.8;
@@ -241,21 +252,32 @@
         padding-left: 0;
       }
 
-      .about-section {
-        margin-top: 46px;
+      .about-section,
+      .mission-section {
         padding: 0;
         text-align: center;
       }
 
-      .about-title {
+      .about-section {
+        margin-top: 46px;
+      }
+
+      .mission-section {
+        margin-top: 38px;
+      }
+
+      .about-title,
+      .mission-title {
         font-size: 2.25rem;
       }
 
-      .about-section h3 {
+      .about-section h3,
+      .mission-section h3 {
         font-size: 1.75rem;
       }
 
-      .about-section p {
+      .about-section p,
+      .mission-section p {
         font-size: 0.98rem;
       }
 
@@ -294,6 +316,16 @@
         Rising Star is a kid-led online discussion club where members practice speaking,
         listening, and leading conversations. In our meetings, kids share ideas, ask thoughtful
         questions, and build the confidence to communicate clearly with others.
+      </p>
+    </section>
+
+    <section class="mission-section" aria-label="Our mission">
+      <h2 class="mission-title">Our Mission</h2>
+      <h3>Helping kids speak, listen, and lead.</h3>
+      <p>
+        Our mission is to help kids become confident speakers, thoughtful listeners,
+        and kind leaders. Rising Star gives members a safe and supportive place to
+        practice sharing ideas, leading discussions, and learning from each other.
       </p>
     </section>
 
