@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rising Star | Club Members</title>
+
   <style>
     :root {
       --text: #111827;
@@ -24,17 +25,29 @@
 
     html {
       scroll-behavior: auto;
+      background: #f4f7fb;
     }
 
     body {
       min-height: 100vh;
+      position: relative;
+      isolation: isolate;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      padding-bottom: 96px;
+      background: transparent;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
       background:
         radial-gradient(circle at top left, rgba(122, 92, 255, 0.10), transparent 30%),
         radial-gradient(circle at bottom right, rgba(255, 184, 0, 0.14), transparent 30%),
         linear-gradient(180deg, #fcfcfe 0%, #f4f7fb 100%);
-      color: var(--text);
-      padding-bottom: 96px;
     }
 
     .navbar {
@@ -101,7 +114,6 @@
       justify-content: center;
       align-items: center;
       padding: 9px 0 calc(9px + env(safe-area-inset-bottom));
-      border-radius: 0;
       background: #ffffff;
       border-top: 1px solid rgba(17, 24, 39, 0.10);
       box-shadow: 0 -8px 24px rgba(17, 24, 39, 0.08);
@@ -118,7 +130,7 @@
 
     .stars-grid {
       display: grid;
-      grid-template-columns: repeat(10, 1ch);
+      grid-template-columns: repeat(var(--stars-cols, 10), 1ch);
       grid-template-rows: auto auto;
       justify-content: center;
       justify-items: center;
@@ -172,12 +184,7 @@
       transition: color 0.2s ease, opacity 0.2s ease, border-color 0.2s ease;
     }
 
-    .stars-page-link:hover .stars-number {
-      color: var(--blue-1);
-      opacity: 1;
-      border-bottom-color: var(--blue-1);
-    }
-
+    .stars-page-link:hover .stars-number,
     .stars-page-link:focus-visible .stars-number {
       color: var(--blue-1);
       opacity: 1;
@@ -210,6 +217,50 @@
       font-size: 0.98rem;
       line-height: 1.65;
       margin: 0;
+    }
+
+    .member-search {
+      width: min(100%, 520px);
+      margin-top: 22px;
+    }
+
+    .member-search label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue-1);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .member-search input {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid rgba(17, 24, 39, 0.14);
+      outline: none;
+      border-radius: 999px;
+      padding: 14px 18px;
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 14px 34px rgba(17, 24, 39, 0.07);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .member-search input:focus {
+      background: rgba(255, 255, 255, 0.78);
+      border-color: rgba(79, 124, 255, 0.55);
+      box-shadow:
+        0 14px 34px rgba(17, 24, 39, 0.07),
+        0 0 0 4px rgba(79, 124, 255, 0.12);
+    }
+
+    .member-search input::placeholder {
+      color: rgba(107, 114, 128, 0.72);
     }
 
     .members {
@@ -294,6 +345,15 @@
       max-width: 360px;
     }
 
+    .no-results {
+      padding: 38px 80px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
     @media (max-width: 900px) {
       .page-intro {
         padding: 92px 28px 20px;
@@ -308,6 +368,10 @@
       .member-photo {
         height: 480px;
         min-height: 340px;
+      }
+
+      .no-results {
+        padding: 34px 28px;
       }
     }
 
@@ -334,6 +398,15 @@
         padding: 88px 24px 18px;
       }
 
+      .member-search {
+        margin-top: 20px;
+      }
+
+      .member-search input {
+        padding: 13px 16px;
+        font-size: 0.95rem;
+      }
+
       .member-section {
         grid-template-columns: 1fr;
         row-gap: 22px;
@@ -354,9 +427,14 @@
       .member-about {
         max-width: 100%;
       }
+
+      .no-results {
+        padding: 34px 24px;
+      }
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <div class="nav-links">
@@ -367,43 +445,7 @@
 
   <nav class="stars-shortcut" aria-label="Club member group shortcuts">
     <div class="stars-shortcut-inner">
-      <div class="stars-grid">
-        <span class="stars-static-letter" style="--col: 1;">S</span>
-        <span class="stars-static-letter" style="--col: 2;">t</span>
-
-        <a class="stars-page-link" style="--col: 3;" href="#member-group-1" aria-label="Jump to club member group 1">
-          <span class="stars-page-letter">a</span>
-          <span class="stars-number">1</span>
-        </a>
-
-        <a class="stars-page-link" style="--col: 4;" href="#member-group-2" aria-label="Jump to club member group 2">
-          <span class="stars-page-letter">a</span>
-          <span class="stars-number">2</span>
-        </a>
-
-        <a class="stars-page-link" style="--col: 5;" href="#member-group-3" aria-label="Jump to club member group 3">
-          <span class="stars-page-letter">a</span>
-          <span class="stars-number">3</span>
-        </a>
-
-        <a class="stars-page-link" style="--col: 6;" href="#member-group-4" aria-label="Jump to club member group 4">
-          <span class="stars-page-letter">a</span>
-          <span class="stars-number">4</span>
-        </a>
-
-        <a class="stars-page-link" style="--col: 7;" href="#member-group-5" aria-label="Jump to club member group 5">
-          <span class="stars-page-letter">a</span>
-          <span class="stars-number">5</span>
-        </a>
-
-        <a class="stars-page-link" style="--col: 8;" href="#member-group-6" aria-label="Jump to club member group 6">
-          <span class="stars-page-letter">a</span>
-          <span class="stars-number">6</span>
-        </a>
-
-        <span class="stars-static-letter" style="--col: 9;">r</span>
-        <span class="stars-static-letter" style="--col: 10;">s</span>
-      </div>
+      <div class="stars-grid" id="starsGrid" data-shortcut-groups="6"></div>
     </div>
   </nav>
 
@@ -413,489 +455,303 @@
       <p>
         Meet the kids who host Rising Star’s online discussion meetings.
       </p>
+
+      <div class="member-search">
+        <input
+          id="memberSearch"
+          type="search"
+          autocomplete="off"
+          placeholder="Search for a club member..."
+          aria-label="Search for a club member by name"
+        />
+      </div>
     </div>
   </header>
 
-  <main class="members">
-    <div class="member-group-anchor" id="member-group-1"></div>
+  <main class="members" id="membersList"></main>
 
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
+  <script>
+    const clubMembers = [
+      {
+        name: "Alex",
+        image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=900&q=80",
+        about: "Alex enjoys sharing ideas, listening to others, and helping everyone feel comfortable during discussions."
+      },
+      {
+        name: "Emma",
+        image: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80",
+        about: "Emma likes learning from other people’s opinions and making online meetings feel friendly and welcoming."
+      },
+      {
+        name: "Noah",
+        image: "https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=900&q=80",
+        about: "Noah enjoys asking questions, hearing new ideas, and helping group conversations stay active and thoughtful."
+      },
+      {
+        name: "Maya",
+        image: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80",
+        about: "Maya enjoys welcoming new members, starting conversations, and making sure everyone has a chance to share."
+      },
+      {
+        name: "Liam",
+        image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+        about: "Liam likes leading fun topics, asking follow-up questions, and helping discussions stay organized."
+      },
+      {
+        name: "Sophia",
+        image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80",
+        about: "Sophia enjoys hearing different opinions, encouraging quiet speakers, and keeping meetings positive."
+      },
+      {
+        name: "Ethan",
+        image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80",
+        about: "Ethan enjoys planning discussion questions, sharing creative ideas, and helping meetings feel energetic."
+      },
+      {
+        name: "Olivia",
+        image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=900&q=80",
+        about: "Olivia likes listening carefully, building on other members’ ideas, and making conversations more thoughtful."
+      },
+      {
+        name: "Ava",
+        image: "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80",
+        about: "Ava enjoys helping members feel confident, asking creative questions, and making each meeting welcoming."
+      },
+      {
+        name: "Lucas",
+        image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=900&q=80",
+        about: "Lucas enjoys introducing topics, inviting others to respond, and helping conversations move smoothly."
+      },
+      {
+        name: "Isabella",
+        image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80",
+        about: "Isabella likes making everyone feel included, asking clear questions, and encouraging thoughtful answers."
+      },
+      {
+        name: "Mason",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80",
+        about: "Mason enjoys sharing opinions, learning from other members, and helping meetings stay respectful."
+      },
+      {
+        name: "Harper",
+        image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80",
+        about: "Harper enjoys bringing creative topics, listening closely, and helping shy members feel comfortable."
+      },
+      {
+        name: "James",
+        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=80",
+        about: "James likes helping discussions stay focused, asking follow-up questions, and giving others time to speak."
+      },
+      {
+        name: "Mia",
+        image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=80",
+        about: "Mia enjoys hearing new ideas, helping members connect, and making online meetings feel fun."
+      },
+      {
+        name: "Ben",
+        image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80",
+        about: "Ben enjoys leading friendly debates, asking interesting questions, and helping everyone explain their thinking."
+      },
+      {
+        name: "Chloe",
+        image: "https://images.unsplash.com/photo-1524503033411-c9566986fc8f?auto=format&fit=crop&w=900&q=80",
+        about: "Chloe likes welcoming visitors, encouraging teamwork, and helping club members speak with confidence."
+      },
+      {
+        name: "Daniel",
+        image: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=900&q=80",
+        about: "Daniel enjoys organizing discussion turns, sharing thoughtful ideas, and helping meetings end with strong takeaways."
+      }
+    ];
 
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Alex</h2>
+    const membersList = document.getElementById("membersList");
+    const starsGrid = document.getElementById("starsGrid");
+    const memberSearch = document.getElementById("memberSearch");
+
+    function getNameMatchScore(name, searchText) {
+      const normalizedName = name.toLowerCase();
+      const normalizedSearchText = searchText.trim().toLowerCase();
+
+      if (normalizedSearchText === "") {
+        return 0;
+      }
+
+      if (normalizedName === normalizedSearchText) {
+        return 1000;
+      }
+
+      if (normalizedName.startsWith(normalizedSearchText)) {
+        return 800 - normalizedName.length;
+      }
+
+      const matchIndex = normalizedName.indexOf(normalizedSearchText);
+
+      if (matchIndex !== -1) {
+        return 600 - matchIndex - normalizedName.length;
+      }
+
+      let sequentialMatches = 0;
+      let searchIndex = 0;
+
+      for (const letter of normalizedName) {
+        if (letter === normalizedSearchText[searchIndex]) {
+          sequentialMatches++;
+          searchIndex++;
+        }
+
+        if (searchIndex === normalizedSearchText.length) {
+          break;
+        }
+      }
+
+      if (sequentialMatches === normalizedSearchText.length) {
+        return 300 - normalizedName.length;
+      }
+
+      return -1;
+    }
+
+    function getMatchingMembers(searchText) {
+      const normalizedSearchText = searchText.trim().toLowerCase();
+
+      if (normalizedSearchText === "") {
+        return clubMembers;
+      }
+
+      return clubMembers
+        .map((member, originalIndex) => ({
+          ...member,
+          originalIndex,
+          matchScore: getNameMatchScore(member.name, normalizedSearchText)
+        }))
+        .filter(member => member.matchScore >= 0)
+        .sort((a, b) => {
+          if (b.matchScore !== a.matchScore) {
+            return b.matchScore - a.matchScore;
+          }
+
+          return a.originalIndex - b.originalIndex;
+        });
+    }
+
+    function renderMembers(members) {
+      if (members.length === 0) {
+        membersList.innerHTML = `
+          <p class="no-results">
+            No club members match that name.
+          </p>
+        `;
+        return;
+      }
+
+      membersList.innerHTML = members.map(member => `
+        <section class="member-section">
+          <div class="member-photo">
+            <img src="${member.image}" alt="${member.name}" />
           </div>
 
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Alex enjoys sharing ideas, listening to others, and helping everyone
-              feel comfortable during discussions.
-            </p>
+          <div class="member-content">
+            <div class="info-block">
+              <div class="info-row">
+                <span class="field-label">Name</span>
+                <h2 class="member-name">${member.name}</h2>
+              </div>
+
+              <div class="info-row">
+                <span class="field-label">About</span>
+                <p class="member-about">${member.about}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      `).join("");
+    }
 
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
+    function createStaticLetter(letter, column) {
+      const span = document.createElement("span");
+      span.className = "stars-static-letter";
+      span.style.setProperty("--col", column);
+      span.textContent = letter;
+      return span;
+    }
 
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Emma</h2>
-          </div>
+    function createShortcutLink(groupNumber, column) {
+      const link = document.createElement("a");
+      link.className = "stars-page-link";
+      link.style.setProperty("--col", column);
+      link.href = `#member-group-${groupNumber}`;
+      link.setAttribute("aria-label", `Jump to club member group ${groupNumber}`);
 
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Emma likes learning from other people’s opinions and making online
-              meetings feel friendly and welcoming.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+      const letter = document.createElement("span");
+      letter.className = "stars-page-letter";
+      letter.textContent = "a";
 
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
+      const number = document.createElement("span");
+      number.className = "stars-number";
+      number.textContent = groupNumber;
 
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Noah</h2>
-          </div>
+      link.append(letter, number);
+      return link;
+    }
 
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Noah enjoys asking questions, hearing new ideas, and helping group
-              conversations stay active and thoughtful.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    function createGroupAnchor(groupNumber) {
+      const anchor = document.createElement("div");
+      anchor.className = "member-group-anchor";
+      anchor.id = `member-group-${groupNumber}`;
+      return anchor;
+    }
 
-    <div class="member-group-anchor" id="member-group-2"></div>
+    function buildStarsShortcut() {
+      const memberSections = Array.from(document.querySelectorAll(".member-section"));
+      const totalMembers = memberSections.length;
+      const requestedGroups = Number(starsGrid.dataset.shortcutGroups) || 6;
+      const totalGroups = Math.min(requestedGroups, totalMembers);
 
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
+      starsGrid.innerHTML = "";
 
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Maya</h2>
-          </div>
+      if (totalMembers === 0) {
+        starsGrid.style.setProperty("--stars-cols", 5);
+        starsGrid.append(
+          createStaticLetter("S", 1),
+          createStaticLetter("t", 2),
+          createStaticLetter("a", 3),
+          createStaticLetter("r", 4),
+          createStaticLetter("s", 5)
+        );
+        return;
+      }
 
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Maya enjoys welcoming new members, starting conversations, and making
-              sure everyone has a chance to share.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+      starsGrid.style.setProperty("--stars-cols", totalGroups + 4);
 
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
+      starsGrid.append(
+        createStaticLetter("S", 1),
+        createStaticLetter("t", 2)
+      );
 
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Liam</h2>
-          </div>
+      for (let groupIndex = 0; groupIndex < totalGroups; groupIndex++) {
+        const groupNumber = groupIndex + 1;
+        const memberStartIndex = Math.floor((groupIndex * totalMembers) / totalGroups);
+        const targetMember = memberSections[memberStartIndex];
 
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Liam likes leading fun topics, asking follow-up questions, and helping
-              discussions stay organized.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+        targetMember.before(createGroupAnchor(groupNumber));
+        starsGrid.append(createShortcutLink(groupNumber, groupIndex + 3));
+      }
 
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
+      starsGrid.append(
+        createStaticLetter("r", totalGroups + 3),
+        createStaticLetter("s", totalGroups + 4)
+      );
+    }
 
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Sophia</h2>
-          </div>
+    function updateVisibleMembers() {
+      const matchingMembers = getMatchingMembers(memberSearch.value);
+      renderMembers(matchingMembers);
+      buildStarsShortcut();
+    }
 
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Sophia enjoys hearing different opinions, encouraging quiet speakers,
-              and keeping meetings positive.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    memberSearch.addEventListener("input", updateVisibleMembers);
 
-    <div class="member-group-anchor" id="member-group-3"></div>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Ethan</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Ethan enjoys planning discussion questions, sharing creative ideas,
-              and helping meetings feel energetic.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Olivia</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Olivia likes listening carefully, building on other members’ ideas,
-              and making conversations more thoughtful.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Ava</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Ava enjoys helping members feel confident, asking creative questions,
-              and making each meeting welcoming.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="member-group-anchor" id="member-group-4"></div>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Lucas</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Lucas enjoys introducing topics, inviting others to respond, and
-              helping conversations move smoothly.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Isabella</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Isabella likes making everyone feel included, asking clear questions,
-              and encouraging thoughtful answers.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Mason</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Mason enjoys sharing opinions, learning from other members, and
-              helping meetings stay respectful.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="member-group-anchor" id="member-group-5"></div>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Harper</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Harper enjoys bringing creative topics, listening closely, and
-              helping shy members feel comfortable.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">James</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              James likes helping discussions stay focused, asking follow-up
-              questions, and giving others time to speak.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Mia</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Mia enjoys hearing new ideas, helping members connect, and making
-              online meetings feel fun.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="member-group-anchor" id="member-group-6"></div>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Ben</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Ben enjoys leading friendly debates, asking interesting questions,
-              and helping everyone explain their thinking.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1524503033411-c9566986fc8f?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Chloe</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Chloe likes welcoming visitors, encouraging teamwork, and helping
-              club members speak with confidence.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="member-section">
-      <div class="member-photo">
-        <img
-          src="https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=900&q=80"
-          alt="Club member"
-        />
-      </div>
-
-      <div class="member-content">
-        <div class="info-block">
-          <div class="info-row">
-            <span class="field-label">Name</span>
-            <h2 class="member-name">Daniel</h2>
-          </div>
-
-          <div class="info-row">
-            <span class="field-label">About</span>
-            <p class="member-about">
-              Daniel enjoys organizing discussion turns, sharing thoughtful ideas,
-              and helping meetings end with strong takeaways.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    updateVisibleMembers();
+  </script>
 </body>
 </html>
