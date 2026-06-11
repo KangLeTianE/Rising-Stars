@@ -73,6 +73,7 @@
       align-items: stretch;
       height: 100%;
       gap: 0;
+      overflow-x: auto;
     }
 
     .nav-links a {
@@ -87,6 +88,7 @@
       font-weight: 700;
       border-right: 1px solid rgba(17, 24, 39, 0.12);
       border-radius: 0;
+      white-space: nowrap;
       transition: 0.2s ease;
     }
 
@@ -274,7 +276,7 @@
 
     .member-section {
       display: grid;
-      grid-template-columns: minmax(250px, 31vw) minmax(300px, 390px) 1fr;
+      grid-template-columns: minmax(250px, 31vw) minmax(300px, 1fr);
       align-items: start;
       column-gap: clamp(24px, 3.5vw, 48px);
       padding: 38px 80px;
@@ -307,7 +309,8 @@
     }
 
     .member-content {
-      max-width: 390px;
+      width: 100%;
+      max-width: min(100%, var(--member-text-width, 390px));
       padding-top: 6px;
     }
 
@@ -342,7 +345,7 @@
       color: var(--muted);
       font-size: 0.94rem;
       line-height: 1.75;
-      max-width: 360px;
+      max-width: 100%;
     }
 
     .no-results {
@@ -644,6 +647,19 @@
         });
     }
 
+    function getPlainTextLength(htmlText) {
+      const temporaryElement = document.createElement("div");
+      temporaryElement.innerHTML = htmlText;
+      return temporaryElement.textContent.trim().length;
+    }
+
+    function getMemberTextWidth(aboutText) {
+      const textLength = getPlainTextLength(aboutText);
+      const extraWidth = Math.max(0, textLength - 170) * 0.85;
+
+      return Math.round(Math.min(820, 390 + extraWidth));
+    }
+
     function renderMembers(members) {
       if (members.length === 0) {
         membersList.innerHTML = `
@@ -655,7 +671,7 @@
       }
 
       membersList.innerHTML = members.map(member => `
-        <section class="member-section">
+        <section class="member-section" style="--member-text-width: ${getMemberTextWidth(member.about)}px;">
           <div class="member-photo">
             <img src="${member.image}" alt="${member.name}" />
           </div>
