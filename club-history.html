@@ -169,6 +169,68 @@
       max-width: 680px;
     }
 
+    .contact-section {
+      width: min(100%, 860px);
+      margin-top: 52px;
+    }
+
+    .contact-heading {
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 900;
+      margin: 0 0 12px;
+      background: linear-gradient(90deg, var(--blue-1), var(--blue-2), var(--gold-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .contact-intro {
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      margin: 0 0 30px;
+    }
+
+    .contact-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 115px 1fr;
+      column-gap: 18px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-label {
+      color: var(--blue-1);
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      line-height: 1.4;
+    }
+
+    .contact-value {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    a.contact-value {
+      transition: color 0.2s ease;
+    }
+
+    a.contact-value:hover {
+      color: var(--blue-1);
+    }
+
     @media (max-width: 640px) {
       .nav-links a {
         font-size: 0.82rem;
@@ -186,6 +248,25 @@
       }
 
       .history-description {
+        font-size: 0.98rem;
+      }
+
+      .contact-section {
+        margin-top: 46px;
+      }
+
+      .contact-intro {
+        font-size: 0.98rem;
+        margin-bottom: 26px;
+      }
+
+      .contact-row {
+        grid-template-columns: 1fr;
+        row-gap: 10px;
+        padding: 22px 0;
+      }
+
+      .contact-value {
         font-size: 0.98rem;
       }
     }
@@ -236,12 +317,23 @@
       </div>
     </section>
 
-    <section>
-      <h1>Contact</h1>
-      <p>
-        Email: 233630787@qq.com
-        Wechat: jonnykangkang
+    <section class="contact-section" aria-label="Contact Rising Star">
+      <h2 class="contact-heading">Contact</h2>
+      <p class="contact-intro">
+        Get in touch with Rising Star for club questions, event information, or future participation.
       </p>
+
+      <div class="contact-list">
+        <div class="contact-row">
+          <div class="contact-label">Email</div>
+          <a class="contact-value" href="mailto:233630787@qq.com">233630787@qq.com</a>
+        </div>
+
+        <div class="contact-row">
+          <div class="contact-label">Wechat</div>
+          <p class="contact-value">jonnykangkang</p>
+        </div>
+      </div>
     </section>
   </main>
 </body>
